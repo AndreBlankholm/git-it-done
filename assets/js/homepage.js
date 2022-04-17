@@ -11,12 +11,26 @@ var getUserRepos = function (user) {
   var apiUrl = "https://api.github.com/users/" + user + "/repos";
 
   // make a request to the url
-  fetch(apiUrl).then(function (response) {
-    response.json().then(function (data) {
-      displayRepos(data, user);
-      console.log(data);
-    });
-  });                                                          //--( Now that we've created the function, let's set it up so that when the response data is-
+  fetch(apiUrl)
+    .then(function (response) {
+
+    if (response.ok){                                           // valid response check or alert if the status is 200 or not
+
+      response.json().then(function (data) {           
+        displayRepos(data, user);
+        //console.log(data);
+      });
+
+    } else {
+      alert("Error: Guthub user not found!")
+    }
+    
+  })                                                         //--( Now that we've created the function, let's set it up so that when the response data is-
+
+  .catch(function(error) {
+    alert("Unable to connect to Github");
+  });
+
 };                                                             //  converted to JSON, it will be sent from getUserRepos() to displayRepos()  --).
 
 //------------------------------------------------------------------
@@ -38,6 +52,12 @@ var formSubmitHandler = function (event) {
 //------------------------------------------------------------------------
 
 var displayRepos = function (repos, searchTerm) {
+  
+
+  if(repos.length === 0 ) {
+    repoContainerEl.textContent = "No repositories found.";
+    return;
+  };
   // Create a Function to Display Repos
   console.log(repos);
   console.log(searchTerm);
