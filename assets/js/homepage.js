@@ -71,8 +71,9 @@ var displayRepos = function (repos, searchTerm) {
 
     var repoName = repos[i].owner.login + "/" + repos[i].name;             //repos[i]) and writing some of its data to the page.   (NAME)
 
-    var repoEl = document.createElement("div");                            // create a  <div> container for each repo              (DIV)
+    var repoEl = document.createElement("a");                            // create a  <div> container for each repo              (DIV)
     repoEl.classList = "list-item flex-row justify-space-between align-center";                         //                         (STYLE)
+    repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
 
     var titleEl = document.createElement("span");                         // create a span element to hold repository name
     titleEl.textContent = repoName;
